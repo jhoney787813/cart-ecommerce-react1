@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect}from 'react';
+import TopMenu from './components/TopMenu';
+import useFech from './hooks/useFecth';
+import Products from './components/Products';
+import {urlApiProducts} from './utils/constants';
 
 function App() {
+
+
+ const products=useFech(urlApiProducts,null);
+  console.log(products);
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <TopMenu></TopMenu>
+     <Products products={products}></Products>
     </div>
   );
 }
