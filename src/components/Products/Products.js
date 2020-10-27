@@ -5,8 +5,10 @@ import Product from '../Product';
 import './Products.scss';
 
 export default function Products(props)
-{   const {products:{result,loading,error}}=props;
+{   const {products:{result,loading,error},
+            addProductCart }=props;
 
+           // console.log(props);
     return (
         <Container>
             <Row>
@@ -17,7 +19,7 @@ export default function Products(props)
                 ( 
                     result.map((product,index)=>(  
                           
-                        <Product key={index} Product={product}></Product>
+                        <Product key={index} Product={product} addProductCart={addProductCart}></Product>
                         
                         ))               
                     )
