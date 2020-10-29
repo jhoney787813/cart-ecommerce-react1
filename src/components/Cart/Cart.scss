@@ -1,13 +1,13 @@
 .cart {
   svg {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+
     fill: #fff;
   }
 }
 
 .cart-content {
-  overflow: hidden;
+  overflow: hidden !important;
   position: absolute;
   top: 0;
   right: 0;
@@ -72,7 +72,9 @@
   &__products {
     height: calc(100vh - 76px - 119px);
     overflow: scroll;
+    scrollbar-color: #4f5256;
   }
+
   &__product {
     display: flex;
     align-items: center;
@@ -119,6 +121,36 @@
           height: 30px;
         }
       }
+    }
+  }
+
+  &__footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid #4f5256;
+    padding: 15px;
+
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+
+      p {
+        &:first-of-type {
+          font-weight: bold;
+          font-size: 20px;
+        }
+      }
+    }
+
+    button {
+      background-color: #0098d3;
+      width: 100%;
+      border: 0;
+      font-size: 20px;
     }
   }
 }

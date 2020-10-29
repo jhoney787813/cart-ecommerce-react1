@@ -21,11 +21,46 @@ export default function Cart(props)
 
     const widthCarContent= cartOpen? 400:0;
     const [singelProductsCart,setSingelProductsCart]=useState([]);
-
+    const [cartTotalPrice,setCartTotalPrice]=useState(0);
+    
+ 
     useEffect(()=>{
         const allProductsId=removeArrayDuplicates(productsCart);
        setSingelProductsCart(allProductsId);
     },[productsCart]);
+
+    useEffect(()=>{
+    const productData=[];
+    let totalPrice=0;
+    const allProductsId= removeArrayDuplicates(productsCart);
+    allProductsId.forEach(productId=>{
+        const quantity=countDuplicatesItemArray(productId,productsCart);
+        const productValue={
+            id:productId,
+            quantity:quantity
+        };
+        productData.push(productValue);
+
+    })
+
+    if(!products.loading&& products.result)
+    {
+        products.result.forEach(product=>{
+
+            productData.forEach(item=>{
+                if(product.id==item.id)
+                {
+                    const totalValue=product.price * item.quantity;
+                    totalPrice=totalPrice+totalValue;
+                }
+            })
+        })
+    }
+         setCartTotalPrice(totalPrice);
+
+
+    },[productsCart,products]);
+
 
     const closeCart =()=>{
         setCartOpen(false);
@@ -48,7 +83,7 @@ export default function Cart(props)
 
     const decreaseQuantity=(id)=>{
         const arrayItemsCart=productsCart;
-        const result=removeItemArray(arrayItemsCart,id.tosString());
+        const result=removeItemArray(arrayItemsCart,id.toString());
         localStorage.setItem(STORAGE_PRODUCTS_CART,result);
         getProductsCart();
     };
@@ -80,6 +115,8 @@ export default function Cart(props)
             )            
             )}
             </div> 
+        
+            <CartContentFooter cartTotalPrice={cartTotalPrice} />
         </div>
         </>
     );
@@ -164,4 +201,19 @@ function RenderProduct(props)
         </div>
 
     );
+}
+
+function CartContentFooter(props)
+{
+    const {cartTotalPrice}=props;
+
+        return( <div className="cart-content__footer">
+                    <div>
+                        <p>Total Aproximado:</p>   
+                    <p>{cartTotalPrice.toFixed(2)} $</p>  
+                                    
+                    </div>
+                    <Button>Tramitar Pedido</Button>
+                </div>);
+
 }
